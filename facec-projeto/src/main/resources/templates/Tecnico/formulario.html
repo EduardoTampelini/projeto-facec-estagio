@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="header :: head">
+<meta charset="UTF-8">
+
+</head>
+<body>
+
+	<h1 style="display: flex; justify-content: center;">CADASTRO DE
+		TÉCNICOS</h1>
+	<div id="rectangle"
+		style="width: full; height: 40px; background-color: gray">
+
+		<h4 style="display: flex; justify-content: center;">DOIS IRMÃOS MANUTENÇÃO AVÍCOLA</h4>
+		
+	</div>
+
+	<div class="container">
+		<h1 style="text-align: center">
+			<span th:text="${mensagem}"></span>
+		</h1>
+		<br /> <a href="/Tecnico/lista"><button class="btn btn-danger">Voltar</button></a>
+
+		<form action="salvar" method="post">
+
+			<div class="alert alert-danger"
+				th:if="${not #strings.isEmpty(erros)}">
+				<div th:each="erro : ${erros}">
+					<span th:text="${erro.getDefaultMessage()}"></span>
+				</div>
+			</div>
+			<label for="status" class="form-label">Status</label> <select
+				class="form-select form-select-sm ms-auto d-inline-flex w-auto"
+				id="status" name="tecnico.status" th:field="${tecnico.status}">
+				<option th:value="'ATIVO'" th:text="Ativo"></option>
+				<option th:value="'INATIVO'" th:text="Inativo"></option>
+			</select> <br /> <label>Nome</label> <input id="nome" name="nome" type="text"
+				class="form-control form-control-lg"
+				placeholder="Insira o nome completo"
+				aria-label=".form-control-lg example" th:value="${tecnico.nome}">
+			<br /> <label>CPF</label> <input id="cpf" name="cpf" type="text"
+				class="form-control form-control-lg" placeholder="Insira o CPF"
+				aria-label=".form-control-lg example" th:value="${tecnico.cpf}">
+			<br /> <label>Telefone</label> <input id="telefone" name="telefone"
+				type="text" class="form-control form-control-lg"
+				placeholder="Insira o Telefone"
+				aria-label=".form-control-lg example"
+				th:value="${tecnico.telefone}"> <br /> <input
+				type="hidden" id="id" name="id" th:value="${tecnico.id}"
+				th:if="${tecnico !=null}" /> <br />
+
+			<div style="display: flex; justify-content: leaft;">
+
+
+				<button type="submit" class="btn btn-success">Salvar</button>
+
+			</div>
+
+		</form>
+		<br />
+
+		<div th:insert="footer :: foot"></div>
+</body>
+</html>

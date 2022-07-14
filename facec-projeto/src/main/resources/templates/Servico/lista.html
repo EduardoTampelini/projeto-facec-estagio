@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="header :: head">
+<meta charset="UTF-8">
+
+</head>
+<body>
+	<h1 style="display: flex; justify-content: center;">SERVIÇOS</h1>
+	<div id="rectangle"
+		style="width: full; height: 40px; background-color: gray">
+
+		<h4 style="display: flex; justify-content: center;">DOIS IRMÃOS MANUTENÇÃO AVÍCOLA</h4>
+	</div>
+
+	<br />
+
+	<div style="display: flex; justify-content: space-between;">
+		<a href="/Servico/formulario"><button class="btn btn-success">CADASTRAR
+				NOVO</button></a>
+
+		<form action="consultar" method="post">
+			<div class="form-inline"
+				style="display: flex; justify-content: left;">
+
+
+				<input type="text" class="form-control" id="consultar"
+					name="consultar" placeholder="Consulte um servico">
+				<button type="submit" class="btn btn-secondary">consultar</button>
+			</div>
+		</form>
+	</div>
+	<br />
+
+	<table
+		class="table table-dark table-striped table-hover table-sm table-bordered">
+		<thead>
+			<tr>
+				<th>Nome</th>
+			
+				<th>Tempo Estimado</th>
+					<th>Valor</th>
+				<th>Status</th>
+				<th>Edição</th>
+					
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="s : ${servico}">
+				<td th:text="${s.nome}"></td>
+				<td th:text="${s.tempesti}"></td>
+				<td th:text="${s.valor}"></td>
+				<td th:text="${s.status}"></td>
+
+
+				<td><a th:href="@{editar/(id=${s.id})}" class="btn btn-primary">Editar</a></td>
+
+			</tr>
+
+
+		</tbody>
+
+	</table>
+
+
+	<div style="display: flex; justify-content: space-between;">
+		<a href="/"><button class="btn btn-danger">voltar</button></a> <a
+			href="/Servico/relatorio" target="_blank" class="btn btn-primary">Imprimir</a>
+            <a href="/Servico/relatorioAt" target="_blank" class="btn btn-primary">Imprimir Ativo</a>
+			<a href="/Servico/relatorioInt" target="_blank" class="btn btn-primary">Imprimir Inativo</a>
+
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="header :: head">
+<meta charset="UTF-8">
+</head>
+<body>
+
+	<h1 style="display: flex; justify-content: center;">VENDA</h1>
+	<div id="rectangle"
+		style="width: full; height: 40px; background-color: gray">
+
+			<h4 style="display: flex; justify-content: center;">DOIS IRMÃOS MANUTENÇÃO AVÍCOLA</h4>
+	</div>
+
+	<br />
+	<div style="display: flex; justify-content: leaft;">
+		<a href="/Venda/formulario"><button class="btn btn-success">NOVA VENDA	</button></a>
+	</div>
+
+	<br />
+
+	<table
+		class="table table-dark table-striped table-hover table-sm table-bordered">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Vendedor</th>
+				<th>Produto</th>
+				<th>Valor</th>
+				<th>Data Venda</th>
+				<th>Imprimir Ordem</th>
+
+
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="v : ${venda}">
+				<td th:text="${v.cliente.nome}"></td>
+				<td th:text="${v.vendedor.nome}"></td>
+				<td th:text="${v.produto.nome}"></td>
+				<td th:text="${v.valor}"> </td>
+					<td th:text="${v.data}"> </td>
+				<td><a th:href="@{romaneio/(id=${v.id})}" target="_blank"
+					class="btn btn-primary">Romaneio</a></td>
+
+
+			</tr>
+		</tbody>
+	</table>
+	<div style="display: flex; justify-content: space-between;">
+		<a href="/"><button class="btn btn-danger">voltar</button></a> 
+
+			
+
+
+
+	</div>
+</body>
+</html>

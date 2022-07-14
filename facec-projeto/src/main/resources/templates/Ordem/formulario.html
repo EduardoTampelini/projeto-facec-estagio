@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="header :: head">
+<meta charset="UTF-8">
+</head>
+<body>
+
+
+
+	<h1 style="display: flex; justify-content: center;">CADASTRAR OS</h1>
+	<div id="rectangle"
+		style="width: full; height: 40px; background-color: gray">
+
+	<h4 style="display: flex; justify-content: center;">DOIS IRMÃOS MANUTENÇÃO AVÍCOLA</h4>
+	</div>
+	
+	
+	<div class="container">
+		<h1 style="text-align: center">
+			<span th:text="${mensagem}"></span>
+		</h1>
+	
+		<br /> <a href="/Ordem/lista"><button class="btn btn-danger">Voltar</button></a>
+
+
+ 	<br />
+		<form action="salvar" method="post">
+           <div class="alert alert-danger"
+				th:if="${not #strings.isEmpty(erros)}">
+				<div th:each="erro : ${erros}">
+					<span th:text="${erro.getDefaultMessage()}"></span>
+				</div>
+			</div>
+
+			<label for="cliente" class="form-label">Cliente*:</label> <select
+				class="form-select form-select-sm ms-auto d-inline-flex w-auto" style = "width: 350px"
+				id="ordem.cliente" name="ordem.cliente.id" th:field="${ordem.cliente.id}" 
+				 required>
+				<option value="" text=""></option>
+				<option th:each="c : ${clientes}" th:value="${c.id}" 
+					th:text="${c.nome}" th:if="${c.status !=T(com.facec.model.Status).INATIVO}" required>  </option>
+					
+		 	</select> <br /> <label for="tecnico" class="form-label">Técnico*:</label> <select
+				class="form-select form-select-sm ms-auto d-inline-flex w-auto"
+				id="tecnico" name="ordem.tecnico.id" style = "width: 330px"
+				th:field="${ordem.tecnico.id}" required>
+				<option value="" text=""></option>
+				<option th:each="t : ${tecnico}" th:value="${t.id}"
+					th:text="${t.nome}" th:if="${t.status !=T(com.facec.model.Status).INATIVO}" required></option>
+			</select> <br /> <label for="servico" class="form-label">Serviço*:</label> <select
+				class="form-select form-select-sm ms-auto d-inline-flex w-auto"
+				id="servico" name="ordem.servico.id" th:field="${ordem.servico.id}" style = "width: 400px"
+				required>
+				<option value="" text=""></option>
+				<option th:each="s : ${servico}" th:value="${s.id}"
+					th:text="${s.nome + ' - R$'+ s.valor + ' - '+ s.tempesti}"  th:if="${s.status !=T(com.facec.model.Status).INATIVO}" required></option>
+			</select> <br /> <input type="hidden" id="id" name="id" th:value="${ordem.id}"
+				th:if="${ordem != null}" /> <br /> <label>Observação:</label> <input
+				id="desc" name="desc" type="text"
+				class="form-control form-control-lg"
+				placeholder="Digite observacao da ordem" style="width: 550px; height: 80px"
+				aria-label=".form-control-lg example" th:value="${ordem.desc}">
+				<label>Tempo Total*:</label> <input
+				id="temptotal" name="temptotal" type="text"
+				class="form-control form-control-lg"
+				placeholder="Digite o tempo total da ordem"
+				aria-label=".form-control-lg example" th:value="${ordem.temptotal}" required>
+				
+				<br /> <label>Valor*:</label> <input id="valor" name="valor"
+				type="number" min="0" value="0" step="0.01"
+				class="form-control form-control-lg"
+				placeholder="Valor Total" style = "width: 180px; text-align:right"
+				aria-label=".form-control-lg example" th:value="${ordem.valor}" required>
+				
+			<br /> <label>Data da Venda*</label> <input type="date"
+				class="form-control" id="data" name="data" style = "width: 180px"
+				th:value="${#temporals.format(ordem.data, 'yyyy-MM-dd')}" required>
+			<br /> 
+			<button type="submit" class="btn btn-success">Salvar</button>
+
+		</form>
+		<br />
+
+		<div th:insert="footer :: foot"></div>
+</body>
+</html>

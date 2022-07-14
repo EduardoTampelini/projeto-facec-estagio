@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="header :: head">
+<meta charset="UTF-8">
+</head>
+<body>
+
+
+
+	<h1 style="display: flex; justify-content: center;">VENDA</h1>
+	<div id="rectangle"
+		style="width: full; height: 40px; background-color: gray">
+
+	<h4 style="display: flex; justify-content: center;">DOIS IRMÃOS MANUTENÇÃO AVÍCOLA</h4>
+	</div>
+	
+	
+	<div class="container">
+		<h1 style="text-align: center">
+			<span th:text="${mensagem}"></span>
+		</h1>
+	
+		<br /> <a href="/Venda/lista"><button class="btn btn-danger">Voltar</button></a>
+
+
+ 	<br />
+		<form action="salvar" method="post">
+
+           <div class="alert alert-danger"
+				th:if="${not #strings.isEmpty(erros)}">
+				<div th:each="erro : ${erros}">
+					<span th:text="${erro.getDefaultMessage()}"></span>
+				</div>
+			</div>
+
+			<label for="cliente" class="form-label">Cliente*:</label> <select
+				class="form-select form-select-sm ms-auto d-inline-flex w-auto" style = "width: 350px"
+				id="venda.cliente" name="venda.cliente.id" th:field="${venda.cliente.id}" 
+				 required>
+				<option value="" text=""></option>
+				<option th:each="c : ${clientes}" th:value="${c.id}" 
+					th:text="${c.nome}" th:if="${c.status !=T(com.facec.model.Status).INATIVO}" required>  </option>
+					
+			</select> <br /> <label for="vendedor" class="form-label">Vendedor*:</label> <select
+				class="form-select form-select-sm ms-auto d-inline-flex w-auto"
+				id="vendedor" name="venda.vendedor.id" style = "width: 330px"
+				th:field="${venda.vendedor.id}" required>
+				<option value="" text=""></option>
+				<option th:each="v : ${vendedor}" th:value="${v.id}"
+					th:text="${v.nome}" th:if="${v.status !=T(com.facec.model.Status).INATIVO}" required></option>
+			</select> <br /> <label for="produto" class="form-label">Produto*:</label>
+			
+			 <select
+				class="form-select form-select-sm ms-auto d-inline-flex w-auto"
+				id="produto" name="venda.produto.id" th:field="${venda.produto.id}" style = "width: 341px"
+				required>
+				
+				
+				
+				<option value="" text=""></option>
+				<option th:each="p : ${produto}" th:value="${p.id}"
+					th:text="${p.nome +' - '+'R$'+ p.valor}"  th:if="${p.status !=T(com.facec.model.Status).INATIVO}" required></option>
+			</select> <br /> <input type="hidden" id="id" name="id" th:value="${venda.id}"
+			
+			
+				th:if="${venda != null}" /> <br /> <label>Observação:</label> <input
+				id="desc" name="desc" type="text"
+				class="form-control form-control-lg"
+				placeholder="Digite observacao da venda" style="width: 550px; height: 80px"
+				aria-label=".form-control-lg example" th:value="${venda.desc}">
+				
+				<br /> <label>Valor*:</label> <input id="valor" name="valor"
+				type="number" min="0" value="0" step="0.01"
+				class="form-control form-control-lg"
+				placeholder="Valor Total" style = "width: 180px; text-align:right"
+				aria-label=".form-control-lg example" th:value="${venda.valor}" required>
+				
+			<br /> <label>Data da Venda*</label> <input type="date"
+				class="form-control" id="data" name="data" style = "width: 180px"
+				th:value="${#temporals.format(venda.data, 'yyyy-MM-dd')}" required>
+			<br />
+			<button type="submit" class="btn btn-success">Salvar</button>
+
+		</form>
+		<br />
+
+		<div th:insert="footer :: foot"></div>
+</body>
+</html>

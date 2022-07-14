@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="header :: head">
+<meta charset="UTF-8">
+
+</head>
+<body>
+
+
+	<strong id='hora'>.</strong>
+	
+		<h1 style="display: flex; justify-content: center;">RELATÓRIO CLIENTES</h1>
+	<div id="rectangle"
+		style="width: full; height: 40px; background-color: gray">
+
+		<h4 style="display: flex; justify-content: center;">DOIS IRMÃOS MANUTENÇÃO AVÍCOLA</h4>
+	</div >
+ 	<div style="display: flex; justify-content: left;"> <h5> Relatorio filtrado por Nome de clientes inativos</h5> </div>
+	<br />
+	
+<body>
+<table
+		class="table table-dark table-striped table-hover table-sm table-bordered">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>CPF</th>
+				<th>Telefone</th>
+				<th>Status</th>
+				<th>Endereço</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="c : ${cliente}">
+				<td th:text="${c.nome}" th:if="${c.status ==T(com.facec.model.Status).INATIVO}"></td>
+				<td th:text="${c.cpf}" th:if="${c.status ==T(com.facec.model.Status).INATIVO}"></td>
+				<td th:text="${c.telefone}" th:if="${c.status ==T(com.facec.model.Status).INATIVO}"></td>
+				<td th:text="${c.status}" th:if="${c.status ==T(com.facec.model.Status).INATIVO}"></td>
+				<td th:text="${c.endereco}" th:if="${c.status ==T(com.facec.model.Status).INATIVO}"></td>
+
+
+			</tr>
+
+		</tbody>
+
+	</table>
+</body>
+<script type="text/javascript">
+
+var dataAtual = new Date();
+var dia = dataAtual.getDate();
+var mes = (dataAtual.getMonth() + 1);
+var ano = dataAtual.getFullYear();
+var horas = dataAtual.getHours();
+var minutos = dataAtual.getMinutes() ;
+var decimo = (minutos < 10)? "0" + minutos : minutos
+
+
+var element = document.getElementById('hora');
+element.innerHTML ="Data da impressão: " + dia + "/" + mes + "/" + ano + " as " + horas + ":" + decimo + "h." ;
+
+window.print();
+
+</script>
+</html>
